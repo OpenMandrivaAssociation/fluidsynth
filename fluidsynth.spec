@@ -24,7 +24,6 @@ BuildRequires:  ladspa-devel
 BuildRequires:  libalsa-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 FluidSynth is a real-time software synthesizer based on the SoundFont 2
