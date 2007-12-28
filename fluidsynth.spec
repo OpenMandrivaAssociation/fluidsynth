@@ -4,7 +4,7 @@
 %define libnamestaticdev        %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.0.7a
+Version:        1.0.8
 Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        GPL
@@ -61,7 +61,7 @@ Obsoletes:       %{name}-static-devel < %{version}-%{release}
 Libraries and includes files for developing programs based on %{name}.
 
 %prep
-%setup -q -n fluidsynth-1.0.7
+%setup -q
 
 %build
 %{configure2_5x} --enable-ladspa --enable-jack-support \
