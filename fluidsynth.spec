@@ -5,7 +5,7 @@
 
 Name:           fluidsynth
 Version:        1.0.8
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Realtime, SoundFont-based synthesizer
 License:        GPL
 Group:          Sound
@@ -46,6 +46,7 @@ Requires:        %{libname} = %{version}-%{release}
 Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release} 
 Obsoletes:       %{name}-devel < %{version}-%{release}
+Obsoletes:	 %mklibname -d %name 1
 
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
