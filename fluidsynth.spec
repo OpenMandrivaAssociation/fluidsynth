@@ -24,6 +24,8 @@ BuildRequires:  ladspa-devel
 BuildRequires:  libalsa-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
+BuildRequires:  pulseaudio-devel
+BuildRequires:  libreadline-devel
 Obsoletes:	iiwusynth < %{version}-%{release}
 Provides:	iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
