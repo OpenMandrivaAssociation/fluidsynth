@@ -4,8 +4,8 @@
 %define libnamestaticdev        %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.0.8
-Release:        %mkrel 3
+Version:        1.0.9
+Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        GPL
 Group:          Sound
