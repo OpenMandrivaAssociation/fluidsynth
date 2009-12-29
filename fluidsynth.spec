@@ -4,7 +4,7 @@
 %define libnamestaticdev        %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.0.9
+Version:        1.1.1
 Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        GPL
@@ -26,6 +26,7 @@ BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
 BuildRequires:  pulseaudio-devel
 BuildRequires:  libreadline-devel
+BuildRequires:  libsndfile-devel
 Obsoletes:	iiwusynth < %{version}-%{release}
 Provides:	iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
