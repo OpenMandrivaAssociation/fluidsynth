@@ -5,9 +5,9 @@
 
 Name:           fluidsynth
 Version:        1.1.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Realtime, SoundFont-based synthesizer
-License:        GPL
+License:        LGPLv2+
 Group:          Sound
 URL:            http://www.fluidsynth.org/
 Source0:        http://savannah.nongnu.org/download/fluid/%{name}-%{version}.tar.gz
