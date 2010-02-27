@@ -5,7 +5,7 @@
 
 Name:           fluidsynth
 Version:        1.1.1
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
