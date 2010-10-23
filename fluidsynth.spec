@@ -10,6 +10,7 @@ License:        GPL
 Group:          Sound
 URL:            http://www.fluidsynth.org/
 Source0:        http://sourceforge.net/projects/fluidsynth/files/fluidsynth-1.1.2/fluidsynth-1.1.2.tar.bz2
+BuildRequires:  cmake
 BuildRequires:  chrpath
 BuildRequires:  ladspa-devel
 BuildRequires:  e2fsprogs-devel
