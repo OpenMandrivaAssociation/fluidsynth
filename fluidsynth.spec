@@ -1,33 +1,26 @@
 %define major                   1
 %define libname                 %mklibname %{name} %{major}
 %define libnamedev              %mklibname %{name} -d
-%define libnamestaticdev        %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.1.1
-Release:        %mkrel 3
+Version:        1.1.2
+Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
-License:        LGPLv2+
+License:        GPL
 Group:          Sound
 URL:            http://www.fluidsynth.org/
-Source0:        http://savannah.nongnu.org/download/fluid/%{name}-%{version}.tar.gz
-Source1:        http://savannah.nongnu.org/download/fluid/%{name}-%{version}.tar.gz.sig
+Source0:        http://sourceforge.net/projects/fluidsynth/files/fluidsynth-1.1.2/fluidsynth-1.1.2.tar.bz2
 BuildRequires:  chrpath
+BuildRequires:  ladspa-devel
 BuildRequires:  e2fsprogs-devel
 BuildRequires:  jackit-devel
-%if %{mdkversion} > 2006
-BuildRequires:  lash-devel
-%else
-BuildRequires:  ladcca-devel
-%endif
-BuildRequires:  ladspa-devel
 BuildRequires:  libalsa-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
 BuildRequires:  pulseaudio-devel
 BuildRequires:  libreadline-devel
-BuildRequires:  libsndfile-devel
 Obsoletes:	iiwusynth < %{version}-%{release}
+Obsoletes:	%{name}-static-devel
 Provides:	iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -56,36 +49,28 @@ Obsoletes:	 %mklibname -d %name 1
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
 
-%package -n %{libnamestaticdev}
-Summary:         Static libraries from %{name}
-Group:           Development/C
-Requires:        %{libnamedev} = %{version}-%{release}
-Provides:        lib%{name}-static-devel = %{version}-%{release}
-Provides:        %{name}-static-devel = %{version}-%{release} 
-Obsoletes:       %{name}-static-devel < %{version}-%{release}
-
-%description -n %{libnamestaticdev}
-Libraries and includes files for developing programs based on %{name}.
-
 %prep
 %setup -q
 
 %build
-%{configure2_5x} --enable-ladspa --enable-jack-support \
-%if %{mdkversion} > 2006
---disable-ladcca --enable-lash
-%else
---enable-ladcca --disable-lash
-%endif
+# use new cmake build environment
+mkdir build
+cd build
+# enable floats has to be set for now, bug reported upstream
+cmake .. -DCMAKE_INSTALL_PREFIX=%_prefix \
+		 -Denable-ladspa=1 \
+		 -Denable-lash=0 \
+		 -Denable-floats=yes
 %make
                                                                                 
 %install
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
+cd build
 %{makeinstall_std}
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 
 %clean
-rm -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -103,16 +88,83 @@ rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
-%{_libdir}/*.so.%{major}*
+%{_libdir}/*.so.*
 
 %files -n %{libnamedev}
 %defattr(-,root,root)
 %{_includedir}/*.h
 %{_includedir}/%{name}
 %{_libdir}/*.so
-%{_libdir}/*.la
 %{_libdir}/pkgconfig/%{name}.pc
 
-%files -n %{libnamestaticdev}
-%defattr(-,root,root)
-%{_libdir}/*.a
+
+%changelog
+* Thu May 21 2009 Frederik Himpe <fhimpe@mandriva.org> 1.0.9-1mdv2010.0
++ Revision: 378433
+- Build with Pulseaudio support
+- Add BuildRequires: libreadline-devel
+- update to new version 1.0.9
+
+* Sun Aug 24 2008 Adam Williamson <awilliamson@mandriva.org> 1.0.8-3mdv2009.0
++ Revision: 275548
+- obsoletes / provides iiwusynth (the old name of this project)
+
+* Sun Jul 13 2008 Funda Wang <fundawang@mandriva.org> 1.0.8-2mdv2009.0
++ Revision: 234217
+- obsolete old name
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Fri Dec 28 2007 Austin Acton <austin@mandriva.org> 1.0.8-1mdv2008.1
++ Revision: 138724
+- new version
+
+  + Thierry Vignaud <tvignaud@mandriva.com>
+    - kill re-definition of %%buildroot on Pixel's request
+
+* Tue Jul 31 2007 David Walluck <walluck@mandriva.org> 1.0.7a-1mdv2008.0
++ Revision: 56870
+- 1.0.7a
+- Import fluidsynth
+
+
+
+* Mon Feb 20 2006 Austin Acton <austin@mandriva.org> 1.0.7-1mdk
+- New release 1.0.7
+- build with lash support on > 2006
+
+* Sun Jun 12 2005 Austin Acton <austin@mandriva.org> 1.0.6-1mdk
+- 1.0.6
+- source URL
+
+* Sun Feb 6 2005 Austin Acton <austin@mandrake.org> 1.0.5-2mdk
+- rebuild for readline
+
+* Fri Aug 20 2004 Austin Acton <austin@mandrake.org> 1.0.5-1mdk
+- 1.0.5
+- configure 2.5
+
+* Thu Nov 6 2003 Austin Acton <aacton@yorku.ca> 1.0.3-2mdk
+- rebuild without ladcca until it works
+
+* Thu Aug 28 2003 Austin Acton <aacton@yorku.ca> 1.0.3-1mdk
+- 1.0.3
+
+* Tue Jul 15 2003 Austin Acton <aacton@yorku.ca> 1.0.2-3mdk
+- DIRM
+
+* Mon Jul 14 2003 Austin Acton <aacton@yorku.ca> 1.0.2-2mdk
+- rebuild for rpm
+
+* Mon Jun 23 2003 Austin Acton <aacton@yorku.ca> 1.0.2-1mdk
+- 1.0.2
+
+* Thu May 22 2003 Austin Acton <aacton@yorku.ca> 1.0.1-2mdk
+- add .so symbolic link
+
+* Wed May 21 2003 Austin Acton <aacton@yorku.ca> 1.0.1-1mdk
+- initial package
