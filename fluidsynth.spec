@@ -1,10 +1,11 @@
 %define major                   1
 %define libname                 %mklibname %{name} %{major}
 %define libnamedev              %mklibname %{name} -d
+%define oldlibnamestaticdev     %mklibname %{name} -d -s
 
 Name:           fluidsynth
 Version:        1.1.2
-Release:        %mkrel 2
+Release:        %mkrel 3
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -22,7 +23,6 @@ BuildRequires:  pulseaudio-devel
 BuildRequires:  libreadline-devel
 BuildRequires:  libsndfile-devel
 Obsoletes:	iiwusynth < %{version}-%{release}
-Obsoletes:	%{name}-static-devel
 Provides:	iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
@@ -46,7 +46,8 @@ Requires:        %{libname} = %{version}-%{release}
 Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release} 
 Obsoletes:       %{name}-devel < %{version}-%{release}
-Obsoletes:	 %mklibname -d %name 1
+Obsoletes:	     %mklibname -d %name 1
+Obsoletes:       %{oldlibnamestaticdev} < 1.1.2
 
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
@@ -56,31 +57,20 @@ Libraries and includes files for developing programs based on %{name}.
 
 %build
 # use new cmake build environment
-mkdir build
-cd build
 # enable floats has to be set for now, bug reported upstream
-cmake .. -DCMAKE_INSTALL_PREFIX=%_prefix \
-		 -Denable-ladspa=1 \
-		 -Denable-lash=0 \
-		 -Denable-floats=yes
+
+%cmake -Denable-ladspa=1 \
+       -Denable-lash=0 \
+       -Denable-floats=yes
 %make
                                                                                 
 %install
-rm -rf $RPM_BUILD_ROOT
-cd build
-%{makeinstall_std}
+rm -rf %{buildroot}
+%makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 
 %clean
-rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
