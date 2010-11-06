@@ -4,8 +4,8 @@
 %define oldlibnamestaticdev     %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.1.2
-Release:        %mkrel 3
+Version:        1.1.3
+Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -56,12 +56,9 @@ Libraries and includes files for developing programs based on %{name}.
 %setup -q
 
 %build
-# use new cmake build environment
-# enable floats has to be set for now, bug reported upstream
 
 %cmake -Denable-ladspa=1 \
-       -Denable-lash=0 \
-       -Denable-floats=yes
+       -Denable-lash=0
 %make
                                                                                 
 %install
