@@ -5,7 +5,7 @@
 
 Name:           fluidsynth
 Version:        1.1.3
-Release:        %mkrel 1
+Release:        %mkrel 2
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -20,10 +20,11 @@ BuildRequires:  libalsa-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pkgconfig
 BuildRequires:  pulseaudio-devel
+BuildRequires:  portaudio-devel
 BuildRequires:  libreadline-devel
 BuildRequires:  libsndfile-devel
-Obsoletes:	iiwusynth < %{version}-%{release}
-Provides:	iiwusynth = %{version}-%{release}
+Obsoletes:  iiwusynth < %{version}-%{release}
+Provides:   iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -46,7 +47,7 @@ Requires:        %{libname} = %{version}-%{release}
 Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release} 
 Obsoletes:       %{name}-devel < %{version}-%{release}
-Obsoletes:	     %mklibname -d %name 1
+Obsoletes:       %mklibname -d %name 1
 Obsoletes:       %{oldlibnamestaticdev} < 1.1.2
 
 %description -n %{libnamedev}
