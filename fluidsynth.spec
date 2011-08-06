@@ -4,8 +4,8 @@
 %define oldlibnamestaticdev     %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.1.3
-Release:        %mkrel 2
+Version:        1.1.4
+Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -23,8 +23,6 @@ BuildRequires:  pulseaudio-devel
 BuildRequires:  portaudio-devel
 BuildRequires:  libreadline-devel
 BuildRequires:  libsndfile-devel
-Obsoletes:  iiwusynth < %{version}-%{release}
-Provides:   iiwusynth = %{version}-%{release}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -45,10 +43,10 @@ Summary:         Header files and libraries from %{name}
 Group:           Development/C
 Requires:        %{libname} = %{version}-%{release}
 Provides:        lib%{name}-devel = %{version}-%{release}
-Provides:        %{name}-devel = %{version}-%{release} 
+Provides:        %{name}-devel = %{version}-%{release}
 Obsoletes:       %{name}-devel < %{version}-%{release}
 Obsoletes:       %mklibname -d %name 1
-Obsoletes:       %{oldlibnamestaticdev} < 1.1.2
+Obsoletes:       %{oldlibnamestaticdev} < 1.1.3
 
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
@@ -61,7 +59,7 @@ Libraries and includes files for developing programs based on %{name}.
 %cmake -Denable-ladspa=1 \
        -Denable-lash=0
 %make
-                                                                                
+
 %install
 rm -rf %{buildroot}
 %makeinstall_std -C build
