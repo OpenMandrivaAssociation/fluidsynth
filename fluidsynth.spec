@@ -56,7 +56,8 @@ Libraries and includes files for developing programs based on %{name}.
 
 %build
 
-%cmake -Denable-ladspa=1 \
+%cmake -DLIB_SUFFIX='' \
+       -Denable-ladspa=1 \
        -Denable-lash=0
 %make
 
