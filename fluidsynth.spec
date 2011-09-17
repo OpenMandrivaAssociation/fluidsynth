@@ -4,7 +4,7 @@
 %define oldlibnamestaticdev     %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.1.4
+Version:        1.1.5
 Release:        %mkrel 1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
