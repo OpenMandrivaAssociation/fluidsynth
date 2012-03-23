@@ -5,7 +5,7 @@
 
 Name:           fluidsynth
 Version:        1.1.5
-Release:        %mkrel 1
+Release:        2
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -14,16 +14,14 @@ Source0:        http://sourceforge.net/projects/fluidsynth/files/%{name}-%{versi
 BuildRequires:  cmake
 BuildRequires:  chrpath
 BuildRequires:  ladspa-devel
-BuildRequires:  e2fsprogs-devel
 BuildRequires:  jackit-devel
 BuildRequires:  libalsa-devel
-BuildRequires:  ncurses-devel
+BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig
 BuildRequires:  pulseaudio-devel
 BuildRequires:  portaudio-devel
-BuildRequires:  libreadline-devel
-BuildRequires:  libsndfile-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(sndfile)
 
 %description
 FluidSynth is a real-time software synthesizer based on the SoundFont 2
@@ -65,6 +63,8 @@ Libraries and includes files for developing programs based on %{name}.
 rm -rf %{buildroot}
 %makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
+# Fix bogus pkgconfig file...
+sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
 
 %clean
 rm -rf %{buildroot}
