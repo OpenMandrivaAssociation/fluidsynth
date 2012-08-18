@@ -4,8 +4,8 @@
 %define oldlibnamestaticdev     %mklibname %{name} -d -s
 
 Name:           fluidsynth
-Version:        1.1.5
-Release:        2
+Version:        1.1.6
+Release:        1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -44,7 +44,7 @@ Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release}
 Obsoletes:       %{name}-devel < %{version}-%{release}
 Obsoletes:       %mklibname -d %name 1
-Obsoletes:       %{oldlibnamestaticdev} < 1.1.3
+Obsoletes:       %{oldlibnamestaticdev} < 1.1.6
 
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
