@@ -44,7 +44,7 @@ Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release}
 Obsoletes:       %{name}-devel < %{version}-%{release}
 Obsoletes:       %mklibname -d %name 1
-Obsoletes:       %{oldlibnamestaticdev} < 1.1.6
+Obsoletes:       %{oldlibnamestaticdev} < 1.1.3
 
 %description -n %{libnamedev}
 Libraries and includes files for developing programs based on %{name}.
@@ -66,21 +66,15 @@ rm -rf %{buildroot}
 # Fix bogus pkgconfig file...
 sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*.so.*
 
 %files -n %{libnamedev}
-%defattr(-,root,root)
 %{_includedir}/*.h
 %{_includedir}/%{name}
 %{_libdir}/*.so
