@@ -1,7 +1,6 @@
-%define major                   1
-%define libname                 %mklibname %{name} %{major}
-%define libnamedev              %mklibname %{name} -d
-%define oldlibnamestaticdev     %mklibname %{name} -d -s
+%define major	1
+%define libname	%mklibname %{name} %{major}
+%define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
 Version:        1.1.6
@@ -9,18 +8,18 @@ Release:        1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
-URL:            http://www.fluidsynth.org/
+Url:            http://www.fluidsynth.org/
 Source0:        http://sourceforge.net/projects/fluidsynth/files/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
 BuildRequires:  cmake
 BuildRequires:  chrpath
 BuildRequires:  ladspa-devel
-BuildRequires:  jackit-devel
-BuildRequires:  libalsa-devel
-BuildRequires:  pkgconfig(ncurses)
-BuildRequires:  pkgconfig
-BuildRequires:  pulseaudio-devel
-BuildRequires:  portaudio-devel
 BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(jack)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(ncurses)
+BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(sndfile)
 
 %description
@@ -36,31 +35,26 @@ Group:          System/Libraries
 %description -n %{libname}
 Dynamic libraries from %{name}.
 
-%package -n %{libnamedev}
+%package -n %{devname}
 Summary:         Header files and libraries from %{name}
 Group:           Development/C
 Requires:        %{libname} = %{version}-%{release}
-Provides:        lib%{name}-devel = %{version}-%{release}
 Provides:        %{name}-devel = %{version}-%{release}
-Obsoletes:       %{name}-devel < %{version}-%{release}
-Obsoletes:       %mklibname -d %name 1
-Obsoletes:       %{oldlibnamestaticdev} < 1.1.3
 
-%description -n %{libnamedev}
+%description -n %{devname}
 Libraries and includes files for developing programs based on %{name}.
 
 %prep
 %setup -q
 
 %build
-
-%cmake -DLIB_SUFFIX='' \
-       -Denable-ladspa=1 \
-       -Denable-lash=0
+%cmake \
+	-DLIB_SUFFIX='' \
+	-Denable-ladspa=1 \
+	-Denable-lash=0
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 # Fix bogus pkgconfig file...
@@ -69,13 +63,14 @@ sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includ
 %files
 %doc README
 %{_bindir}/%{name}
-%{_mandir}/man1/%{name}.1.*
+%{_mandir}/man1/%{name}.1*
 
 %files -n %{libname}
-%{_libdir}/*.so.*
+%{_libdir}/libfluidsynth.so.%{major}*
 
-%files -n %{libnamedev}
+%files -n %{devname}
 %{_includedir}/*.h
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/%{name}.pc
+
