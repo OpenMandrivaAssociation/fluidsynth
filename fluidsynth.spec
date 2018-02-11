@@ -61,7 +61,7 @@ Libraries and includes files for developing programs based on %{name}.
 sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
 
 %files
-%doc README
+%doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
