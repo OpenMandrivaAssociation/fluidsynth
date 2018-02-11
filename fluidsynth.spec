@@ -3,13 +3,13 @@
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:        1.1.6
+Version:        1.1.9
 Release:        16
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
 Url:            http://www.fluidsynth.org/
-Source0:        http://sourceforge.net/projects/fluidsynth/files/%{name}-%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://github.com/FluidSynth/fluidsynth/archive/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  chrpath
