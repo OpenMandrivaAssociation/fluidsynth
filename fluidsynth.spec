@@ -15,6 +15,9 @@ BuildRequires:  cmake
 BuildRequires:  chrpath
 BuildRequires:  ladspa-devel
 BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(dbus-1) >= 1.0.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.6.5
+BuildRequires:  pkgconfig(gthread-2.0) >= 2.6.5
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libpulse)
