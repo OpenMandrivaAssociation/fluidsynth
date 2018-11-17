@@ -13,6 +13,7 @@ Source0:        https://github.com/FluidSynth/fluidsynth/archive/%{name}-%{versi
 
 BuildRequires:  cmake
 BuildRequires:  chrpath
+BuildRequires:	doxygen
 BuildRequires:  ladspa-devel
 BuildRequires:  readline-devel
 BuildRequires:  pkgconfig(dbus-1) >= 1.0.0
@@ -55,13 +56,13 @@ Libraries and includes files for developing programs based on %{name}.
 	-DLIB_SUFFIX='' \
 	-Denable-ladspa=1 \
 	-Denable-lash=0
-%make
+%make_build
 
 %install
 %makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 # Fix bogus pkgconfig file...
-sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
+#sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
 
 %files
 %doc README.md
