@@ -3,13 +3,13 @@
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:        1.1.9
-Release:        18
+Version:        1.1.11
+Release:        1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
 Url:            http://www.fluidsynth.org/
-Source0:        https://github.com/FluidSynth/fluidsynth/archive/%{name}-%{version}.tar.gz
+Source0:        https://github.com/FluidSynth/fluidsynth/archive/v1.1.11/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  chrpath
@@ -58,7 +58,7 @@ Libraries and includes files for developing programs based on %{name}.
 %makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 # Fix bogus pkgconfig file...
-sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
+sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %files
 %doc README.md
@@ -73,4 +73,3 @@ sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includ
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/%{name}.pc
-
