@@ -1,4 +1,2 @@
-removed_sources:
-  fluidsynth-1.1.9.tar.gz: 669f55760f0f7400397d3fd554acb138a91cd361
 sources:
-  fluidsynth-1.1.11.tar.gz: e86a98b7a09d60e29edcb10f87da6433b2d0c485
+  fluidsynth-2.0.5.tar.gz: 54dc28cfceeda3a78db3edaeee95b18edad50d30

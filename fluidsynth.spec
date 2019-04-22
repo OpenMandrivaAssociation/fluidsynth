@@ -1,9 +1,9 @@
-%define major	1
+%define major	2
 %define libname	%mklibname %{name} %{major}
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:        1.1.11
+Version:        2.0.5
 Release:        1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
@@ -13,8 +13,12 @@ Source0:        https://github.com/FluidSynth/fluidsynth/archive/v1.1.11/%{name}
 
 BuildRequires:  cmake
 BuildRequires:  chrpath
+BuildRequires:	doxygen
 BuildRequires:  ladspa-devel
 BuildRequires:  readline-devel
+BuildRequires:  pkgconfig(dbus-1) >= 1.0.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.6.5
+BuildRequires:  pkgconfig(gthread-2.0) >= 2.6.5
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libpulse)
@@ -50,15 +54,15 @@ Libraries and includes files for developing programs based on %{name}.
 %build
 %cmake \
 	-DLIB_SUFFIX='' \
-	-Denable-ladspa=1 \
+	-Denable-portaudio=1 \
 	-Denable-lash=0
-%make
+%make_build
 
 %install
 %makeinstall_std -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 # Fix bogus pkgconfig file...
-sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %{buildroot}%{_libdir}/pkgconfig/*.pc
+#sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
 
 %files
 %doc README.md
