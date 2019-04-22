@@ -9,7 +9,7 @@ Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
 Url:            http://www.fluidsynth.org/
-Source0:        https://github.com/FluidSynth/fluidsynth/archive/%{name}-%{version}.tar.gz
+Source0:        https://github.com/FluidSynth/fluidsynth/archive/v1.1.11/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  chrpath
@@ -77,4 +77,3 @@ Libraries and includes files for developing programs based on %{name}.
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/%{name}.pc
-
