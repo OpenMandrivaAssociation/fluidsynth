@@ -3,7 +3,7 @@
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:        2.0.1
+Version:        2.0.5
 Release:        1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
@@ -54,7 +54,7 @@ Libraries and includes files for developing programs based on %{name}.
 %build
 %cmake \
 	-DLIB_SUFFIX='' \
-	-Denable-ladspa=1 \
+	-Denable-portaudio=1 \
 	-Denable-lash=0
 %make_build
 
