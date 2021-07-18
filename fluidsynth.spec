@@ -25,6 +25,9 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(sndfile)
+BuildRequires:	pkgconfig(sdl2)
+BuildRequires:	pkgconfig(systemd)
+BuildRequires:	pkgconfig(libinstpatch-1.0)
 
 %description
 FluidSynth is a real-time software synthesizer based on the SoundFont 2
