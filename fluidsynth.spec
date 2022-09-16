@@ -3,7 +3,7 @@
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:	2.2.8
+Version:	2.2.9
 Release:	1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
