@@ -82,3 +82,4 @@ Libraries and includes files for developing programs based on %{name}.
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/fluidsynth/
