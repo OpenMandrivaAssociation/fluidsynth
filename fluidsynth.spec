@@ -3,7 +3,7 @@
 %define devname	%mklibname %{name} -d
 
 Name:           fluidsynth
-Version:	2.2.9
+Version:	2.3.0
 Release:	1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
@@ -23,6 +23,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(jack)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ncurses)
+BuildRequires:	pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(portaudio-2.0)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:	pkgconfig(sdl2)
@@ -58,6 +59,7 @@ Libraries and includes files for developing programs based on %{name}.
 %cmake \
 	-DLIB_SUFFIX='' \
 	-Denable-portaudio=1 \
+	-Denable-pipewire=ON \
 	-Denable-lash=0
 %make_build
 
