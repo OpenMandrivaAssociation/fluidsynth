@@ -4,7 +4,7 @@
 
 Name:           fluidsynth
 Version:	2.3.0
-Release:	1
+Release:	2
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
@@ -12,6 +12,7 @@ Url:            http://www.fluidsynth.org/
 Source0:        https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
+BuildRequires:	ninja
 BuildRequires:  chrpath
 BuildRequires:	doxygen
 BuildRequires:  ladspa-devel
@@ -54,25 +55,32 @@ Libraries and includes files for developing programs based on %{name}.
 
 %prep
 %setup -q
-
-%build
 %cmake \
 	-DLIB_SUFFIX='' \
 	-Denable-portaudio=1 \
 	-Denable-pipewire=ON \
-	-Denable-lash=0
-%make_build
+	-Denable-lash=0 \
+	-DFLUID_DAEMON_ENV_FILE=%{_sysconfdir}/sysconfig/fluidsynth \
+	-G Ninja
+
+%build
+%ninja_build -C build
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 %{_bindir}/chrpath -d %{buildroot}%{_libdir}/libfluidsynth.so.*.*.*
 # Fix bogus pkgconfig file...
 #sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
+mkdir -p %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig
+install -c -m 644 build/fluidsynth.service %{buildroot}%{_unitdir}/
+sed -e 's,^#SOUND_FONT,SOUND_FONT,' build/fluidsynth.conf >%{buildroot}%{_sysconfdir}/sysconfig/fluidsynth
 
 %files
 %doc README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
+%{_unitdir}/fluidsynth.service
+%config(noreplace) %{_sysconfdir}/sysconfig/fluidsynth
 
 %files -n %{libname}
 %{_libdir}/libfluidsynth.so.%{major}*
