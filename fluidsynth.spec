@@ -4,7 +4,7 @@
 
 Name:           fluidsynth
 Version:	2.3.1
-Release:	1
+Release:	2
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
 Group:          Sound
