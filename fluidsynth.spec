@@ -1,7 +1,12 @@
 %define major	3
-%define libname	%mklibname %{name} %{major}
+%define libname	%mklibname %{name}
+%define oldlibname	%mklibname %{name} 3
 %define devname	%mklibname %{name} -d
 
+### FIXME ###
+# From 2.3.2 fluidsynth introduce some changes to pkgconfix and cmake mechanism and looks like that cause problems with tests.
+# nothing provides cmake(oboe), cmake(systemd), cmake(readline), cmake(jack) and few others.
+# To workaround this, lets disable bogus cmake requires. Last good version was 2.3.1. #angry p.
 %global	__cmake_requires %{nil}
 
 Name:           fluidsynth
@@ -42,6 +47,7 @@ can also play MIDI files.
 %package -n %{libname}
 Summary:        Dynamic libraries from %{name}
 Group:          System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 Dynamic libraries from %{name}.
