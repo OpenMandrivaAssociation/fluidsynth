@@ -61,6 +61,7 @@ Libraries and includes files for developing programs based on %{name}.
 	-Denable-pipewire=ON \
 	-Denable-lash=0 \
 	-DFLUID_DAEMON_ENV_FILE=%{_sysconfdir}/sysconfig/fluidsynth \
+ 	-DBUILD_SHARED_LIBS=ON \
 	-G Ninja
 
 %build
