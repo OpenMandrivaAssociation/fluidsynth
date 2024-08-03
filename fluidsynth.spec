@@ -10,7 +10,7 @@
 %global	__cmake_requires %{nil}
 
 Name:           fluidsynth
-Version:	2.3.5
+Version:	2.3.6
 Release:	1
 Summary:        Realtime, SoundFont-based synthesizer
 License:        LGPLv2+
