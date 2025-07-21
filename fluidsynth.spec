@@ -12,15 +12,15 @@
 Summary:	Realtime, SoundFont-based synthesizer
 Name:	fluidsynth
 Version:	2.4.7
-Release:	1
+Release:	2
 License:	LGPLv2+
 Group:	Sound
 Url:	https://www.fluidsynth.org/
 Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	ninja
-BuildRequires:	doxygen
 BuildRequires:gomp-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	pkgconfig(alsa)
@@ -107,7 +107,7 @@ Libraries and includes files for developing programs based on %{name}.
 %ninja_install -C build
 
 # Fix bogus pkgconfig file...
-#sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %buildroot%_libdir/pkgconfig/*.pc
+#sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %%buildroot%%_libdir/pkgconfig/*.pc
 
 mkdir -p %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig
 sed -e 's,^#SOUND_FONT,SOUND_FONT,' build/fluidsynth.conf >%{buildroot}%{_sysconfdir}/sysconfig/%{name}
