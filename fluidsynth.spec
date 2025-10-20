@@ -17,7 +17,7 @@ License:	LGPLv2+
 Group:	Sound
 Url:	https://www.fluidsynth.org/
 Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
+#Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	ninja
