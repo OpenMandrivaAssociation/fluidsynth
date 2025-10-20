@@ -17,11 +17,12 @@ License:	LGPLv2+
 Group:	Sound
 Url:	https://www.fluidsynth.org/
 Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1:	https://github.com/kthohr/gcem/archive/gcem-012ae73c6d0a2cb09ffe86475f5c6fba3926e200.tar.gz
 #Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	ninja
-BuildRequires:gomp-devel
+BuildRequires:	gomp-devel
 BuildRequires:	ladspa-devel
 BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(dbus-1) >= 1.11.12
@@ -86,6 +87,7 @@ Libraries and includes files for developing programs based on %{name}.
 
 %prep
 %autosetup -p1
+tar -C gcem --strip-components=1 -x -f %{SOURCE1}
 
 
 %build
