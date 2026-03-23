@@ -11,7 +11,7 @@
 
 Summary:	Realtime, SoundFont-based synthesizer
 Name:	fluidsynth
-Version:	2.5.2
+Version:	2.5.3
 Release:	1
 License:	LGPLv2+
 Group:	Sound
@@ -19,7 +19,7 @@ Url:	https://www.fluidsynth.org/
 Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	https://github.com/kthohr/gcem/archive/gcem-012ae73c6d0a2cb09ffe86475f5c6fba3926e200.tar.gz
 #Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
-BuildRequires:	cmake
+BuildRequires:	cmake >= 3.13
 BuildRequires:	doxygen
 BuildRequires:	ninja
 BuildRequires:	gomp-devel
