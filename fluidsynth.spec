@@ -7,8 +7,7 @@
 # From 2.3.2 fluidsynth introduce some changes to pkgconfig and cmake mechanism and looks like that cause problems with tests.
 # Nothing provides cmake(oboe), cmake(systemd), cmake(readline), cmake(jack) and few others.
 # To workaround this, lets disable bogus cmake requires. Last good version was 2.3.1. #angry p.
-# Looks fixed in 2.5.4
-#global	__cmake_requires %%{nil}
+%global	__cmake_requires %{nil}
 
 Summary:	Realtime, SoundFont-based synthesizer
 Name:	fluidsynth
