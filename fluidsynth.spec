@@ -11,14 +11,14 @@
 
 Summary:	Realtime, SoundFont-based synthesizer
 Name:	fluidsynth
-Version:	2.5.3
+Version:	2.5.4
 Release:	1
 License:	LGPLv2+
 Group:	Sound
 Url:	https://www.fluidsynth.org/
-Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:	https://github.com/kthohr/gcem/archive/gcem-012ae73c6d0a2cb09ffe86475f5c6fba3926e200.tar.gz
-#Patch0:	fluidsynth-2.4.7-fix-systemd-failing-with-spaces-in-filename.patch
+# Sub-modules are a pain: make a tarball from the commit of 2.5.4 (57c19522838331da5aeae95433b0d776734907d8)
+#Source0:	https://github.com/FluidSynth/fluidsynth/archive/v%%{version}/%%{name}-%%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.xz
 BuildRequires:	cmake >= 3.13
 BuildRequires:	doxygen
 BuildRequires:	ninja
@@ -87,7 +87,6 @@ Libraries and includes files for developing programs based on %{name}.
 
 %prep
 %autosetup -p1
-tar -C gcem --strip-components=1 -x -f %{SOURCE1}
 
 
 %build
@@ -108,11 +107,9 @@ tar -C gcem --strip-components=1 -x -f %{SOURCE1}
 %install
 %ninja_install -C build
 
-# Fix bogus pkgconfig file...
-#sed -i -e 's,//usr,,g;s,-L\${libdir} ,,g;s,^includedir=\${prefix}/include,includedir=\${prefix}/include/fluidsynth,' %%buildroot%%_libdir/pkgconfig/*.pc
-
 mkdir -p %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig
 sed -e 's,^#SOUND_FONT,SOUND_FONT,' build/fluidsynth.conf >%{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 # Install systemd unit
 install -c -m 644 build/fluidsynth.service %{buildroot}%{_unitdir}/
+
